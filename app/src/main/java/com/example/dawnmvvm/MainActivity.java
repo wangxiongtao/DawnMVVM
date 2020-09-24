@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import com.example.dawnmvvm.base.BaseActivity;
 import com.example.dawnmvvm.databinding.ActivityMainBinding;
-import com.example.dawnmvvm.ui.main.MainActivity2;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding,MainVM> {
 
@@ -19,7 +18,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainVM> {
     @Override
     public void initData(Bundle savedInstanceState) {
         getViewModel().skip.observe(this,(o)->{
-                Intent intent=new Intent(this, MainActivity2.class);
+                Intent intent=new Intent(this,o);
                 startActivity(intent);
         });
 

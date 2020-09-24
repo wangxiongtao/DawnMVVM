@@ -1,12 +1,13 @@
 package com.example.dawnmvvm.base;
 
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
+
+import com.example.dawnmvvm.util.LogUtil;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public class BaseViewModel extends ViewModel implements IDisposable,IViewModel {
+public class BaseViewModel extends LifeViewModel implements IDisposable,IViewModel {
     private CompositeDisposable disposable;
     public MutableLiveData<Boolean> loadingEvent=new MutableLiveData<>();
 
@@ -24,6 +25,7 @@ public class BaseViewModel extends ViewModel implements IDisposable,IViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
+        LogUtil.e("===OnLifecycleEvent==onCleared==>");
         if(disposable!=null){
             disposable.clear();
         }

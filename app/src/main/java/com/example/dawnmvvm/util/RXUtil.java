@@ -8,11 +8,11 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 
 public class RXUtil {
-    public static  ObservableTransformer<ResponseBody, ResponseBody> mainThread(){
-        return  new ObservableTransformer<ResponseBody, ResponseBody>() {
+    public static  <T>ObservableTransformer<T, T> mainThread(){
+        return  new ObservableTransformer<T, T>() {
 
             @Override
-            public ObservableSource<ResponseBody> apply(Observable<ResponseBody> upstream) {
+            public ObservableSource<T> apply(Observable<T> upstream) {
                 return upstream.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread());
             }

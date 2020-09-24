@@ -8,14 +8,11 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
-import com.example.dawnmvvm.R;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -66,6 +63,7 @@ public abstract class BaseFragment<VDB extends ViewDataBinding,VM extends BaseVi
             }
         });
         if(initVariableId()>0){
+            getLifecycle().addObserver(viewModel);
             viewDataBinding.setVariable(initVariableId(),viewModel);
         }
 

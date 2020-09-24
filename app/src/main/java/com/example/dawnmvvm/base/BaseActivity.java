@@ -55,6 +55,7 @@ public abstract class BaseActivity<VDB extends ViewDataBinding,VM extends BaseVi
             }
         });
         if(initVariableId()>0){
+            getLifecycle().addObserver(viewModel);
             viewDataBinding.setVariable(initVariableId(),viewModel);
         }
 

@@ -4,7 +4,7 @@
 
     <data>
         <variable
-            name="main2VM"
+            name="mainVm"
             type="com.example.dawnmvvm.ui.main.Main2VM" />
 
     </data>
@@ -13,7 +13,7 @@
         android:orientation="vertical"
         android:layout_height="wrap_content">
         <Button
-            android:onClick="@{main2VM.listener}"
+            android:onClick="@{mainVm.listener}"
             android:layout_width="match_parent"
             android:text="我是ACTIVITY,点击我把请求数据给Fragment"
             android:layout_height="wrap_content"/>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="listVm"
+            type="com.example.dawnmvvm.ui.list.ListVM" />
+        <import type="com.example.dawnmvvm.bindingadapter.recyclerview.LayoutManagerFactory"/>
+        <import type="com.example.dawnmvvm.bindingadapter.recyclerview.DividerLine"/>
+        <variable
+            name="context"
+            type="android.content.Context" />
+    </data>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        app:layoutManager="@{LayoutManagerFactory.grid(context,2)}"
+        app:items="@{listVm.listObservableField}"
+        app:itemBinding="@{listVm.itemBinding}"
+        app:lineManager='@{DividerLine.LineDrawMode.BOTH}'
+        android:layout_height="match_parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+</layout>

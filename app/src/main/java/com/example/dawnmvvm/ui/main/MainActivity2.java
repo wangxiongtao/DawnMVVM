@@ -29,7 +29,7 @@ public class MainActivity2 extends BaseActivity<MainActivityBinding,Main2VM> {
 
     @Override
     public int initVariableId() {
-        return BR.main2VM;
+        return BR.mainVm;
     }
 
     @Override

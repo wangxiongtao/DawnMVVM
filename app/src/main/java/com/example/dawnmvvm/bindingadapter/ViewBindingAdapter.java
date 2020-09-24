@@ -1,7 +1,9 @@
 package com.example.dawnmvvm.bindingadapter;
 
 import androidx.databinding.BindingAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.dawnmvvm.bindingadapter.recyclerview.DividerLine;
 import com.example.dawnmvvm.view.CountDownButton;
 
 public class ViewBindingAdapter {
@@ -13,5 +15,11 @@ public class ViewBindingAdapter {
             view.stop();
         }
     }
+    @BindingAdapter("lineManager")
+    public static void setLineManager(RecyclerView recyclerView,DividerLine.LineDrawMode type) {
+        recyclerView.addItemDecoration(new DividerLine(recyclerView.getContext(), type));
+    }
+
+
 
 }
