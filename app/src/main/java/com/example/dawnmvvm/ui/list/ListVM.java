@@ -1,7 +1,7 @@
 package com.example.dawnmvvm.ui.list;
 
+import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableField;
-import androidx.lifecycle.MutableLiveData;
 
 import com.example.dawnmvvm.BR;
 import com.example.dawnmvvm.R;
@@ -22,8 +22,7 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
 public class ListVM extends BaseViewModel {
-    public MutableLiveData<List<AppResBean>> listObservableField=new MutableLiveData<>();
-    public List<AppResBean>list=new ArrayList<>();
+    public ObservableArrayList<AppResBean> listObservableField=new ObservableArrayList<>();
 
     public ItemBinding<AppResBean>itemBinding= ItemBinding.<AppResBean>of(BR.resItem, R.layout.item_layout)
             .bindExtra(BR.listVm,this);
@@ -65,15 +64,14 @@ public class ListVM extends BaseViewModel {
             @Override
             public void onNext(BaseResponse<LoadAppResBean> res) {
                 super.onNext(res);
-                list.addAll(res.body.list);
-                listObservableField.postValue(list);
+                listObservableField.addAll(res.body.list);
             }
         });
         List<String>list=new ArrayList<>();
         for (int i=0;i<100;i++){
             list.add(i+"这是布局");
         }
-//        listString.set(list);
+        listString.set(list);
 
 
 
@@ -82,8 +80,7 @@ public class ListVM extends BaseViewModel {
         LogUtil.e("===>====>item===>"+item.value);
         AppResBean appResBean=new AppResBean();
         appResBean.value="1111";
-        list.add(appResBean);
-        listObservableField.postValue(list);
+        listObservableField.add(appResBean);
 
     }
     public void clickItem(String item){
