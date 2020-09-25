@@ -6,18 +6,21 @@
             name="resItem"
             type="com.example.dawnmvvm.bean.AppResBean" />
         <variable
+            name="index"
+            type="int" />
+        <variable
             name="listVm"
             type="com.example.dawnmvvm.ui.list.ListVM" />
 
     </data>
 
     <TextView
-        android:onClick="@{()->listVm.clickItem(resItem)}"
+        android:onClick="@{()->listVm.clickItem(resItem,index)}"
         android:layout_width="match_parent"
-        android:textColor="@color/colorAccent"
+        android:textColor="@{index==listVm.selectIndex?0xffff6600:0xff000000}"
         android:gravity="center"
         android:textSize="16sp"
-        android:text="@{resItem.value}"
+        android:text='@{resItem.value+"position====>"+index}'
         android:layout_height="100dp" />
 </layout>
 

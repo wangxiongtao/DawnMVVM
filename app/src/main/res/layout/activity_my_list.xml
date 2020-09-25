@@ -8,17 +8,21 @@
             name="listVm"
             type="com.example.dawnmvvm.ui.list.ListVM" />
         <import type="com.example.dawnmvvm.bindingadapter.recyclerview.DividerLine"/>
-
     </data>
-
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_height="match_parent"
+        app:onRefreshListener="@{listVm.onRefreshListener}"
+        app:refreshing="@{listVm.refreshing}"
+        android:layout_width="match_parent">
     <androidx.recyclerview.widget.RecyclerView
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:lineManager="@{DividerLine.LineDrawMode.HORIZONTAL}"
-        app:dataList="@{listVm.checkBeans}"
-        app:adapter="@{listVm.iBindingAdapter2}"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:lineManager='@{DividerLine.LineDrawMode.BOTH}'
+        app:dataList='@{listVm.listObservableField}'
+        app:adapter='@{listVm.iBindingAdapter}'
 
-    </androidx.recyclerview.widget.RecyclerView>
+        />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </layout>

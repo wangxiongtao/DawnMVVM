@@ -4,17 +4,13 @@
         <variable
             name="listVm"
             type="String" />
-        <variable
-            name="listVm1"
-            type="com.example.dawnmvvm.ui.list.ListVM" />
     </data>
     <TextView
-        android:onClick="@{()->listVm1.headRefresh()}"
         android:layout_width="match_parent"
         android:textColor="@color/colorAccent"
         android:gravity="center"
         android:textSize="16sp"
-        android:text='@{"头部head-----"+listVm}'
+        android:text='@{"底部foot-----"+listVm}'
         android:layout_height="50dp" />
 </layout>
 

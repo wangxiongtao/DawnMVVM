@@ -1,58 +1,70 @@
 package com.example.dawnmvvm.ui.list;
 
 import androidx.databinding.ObservableArrayList;
-import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableInt;
+import androidx.databinding.ObservableList;
+import androidx.lifecycle.MutableLiveData;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.dawnmvvm.BR;
-import com.example.dawnmvvm.R;
+import com.example.dawnmvvm.adapter.ItemAdapter;
+import com.example.dawnmvvm.adapter.ItemAdapterFactory;
+import com.example.dawnmvvm.adapter.MyAdapter;
 import com.example.dawnmvvm.base.BaseViewModel;
 import com.example.dawnmvvm.base.RxLifeObserver;
 import com.example.dawnmvvm.bean.AppResBean;
 import com.example.dawnmvvm.bean.BaseResponse;
+import com.example.dawnmvvm.bean.CheckBean;
 import com.example.dawnmvvm.bean.LoadAppResBean;
 import com.example.dawnmvvm.http.api.ApiRepository;
 import com.example.dawnmvvm.util.LogUtil;
 
-import org.jetbrains.annotations.NotNull;
+import java.util.concurrent.TimeUnit;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import me.tatarka.bindingcollectionadapter2.ItemBinding;
-import me.tatarka.bindingcollectionadapter2.OnItemBind;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class ListVM extends BaseViewModel {
     public ObservableArrayList<AppResBean> listObservableField=new ObservableArrayList<>();
-
-    public ItemBinding<AppResBean>itemBinding= ItemBinding.<AppResBean>of(BR.resItem, R.layout.item_layout)
-            .bindExtra(BR.listVm,this);
+    public MutableLiveData<Boolean> refreshing=new MutableLiveData<>();
 
 
-    public ObservableField<List<String>>listString=new ObservableField<>();
+    public ItemAdapter<AppResBean> iBindingAdapter= ItemAdapterFactory.getAppResAdapter(this);
+    public ItemAdapter<CheckBean> iBindingAdapter2= new MyAdapter(this);
 
 
-
-
-
-
-
-
-    public ItemBinding<String> muitemBinding = ItemBinding.of(new OnItemBind<String>() {
+    public SwipeRefreshLayout.OnRefreshListener onRefreshListener=new SwipeRefreshLayout.OnRefreshListener() {
         @Override
-        public void onItemBind(@NotNull ItemBinding itemBinding, int position, String item) {
-            switch (position){
-                case 0:
-                    itemBinding.set(ItemBinding.VAR_NONE, R.layout.item_header );
-                    break;
-                default:
-                    itemBinding.set(BR.resItem, R.layout.item_layout2 ).bindExtra(BR.listVm,ListVM.this);
-                    break;
+        public void onRefresh() {
+//            refreshing.set(true);
+            LogUtil.e("==onRefresh====>");
+            Observable.timer(2, TimeUnit.SECONDS)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new RxLifeObserver<Long>(ListVM.this){
+                        @Override
+                        public void onNext(Long aLong) {
+                            super.onNext(aLong);
+//                            AppResBean appResBean=new AppResBean();
+//                            appResBean.value="1111";
+//                            listObservableField.add(appResBean);
+                            listObservableField.remove(0);
+                            refreshing.postValue(false);
 
-            }
-
+                            LogUtil.e("==onRefresh===end=>"+Thread.currentThread().getName());
+                        }
+                    }.setShowLoading(false));
 
         }
-    });
+    };
+
+
+
+    public ObservableList<CheckBean> checkBeans=new ObservableArrayList<>();
+
+    public ObservableInt selectIndex=new ObservableInt(-1);
+
+
+
+
 
 
 
@@ -60,31 +72,49 @@ public class ListVM extends BaseViewModel {
     @Override
     public void onCreate() {
         super.onCreate();
+        r();
+        for (int i=0;i<100;i++){
+            CheckBean bean=new CheckBean("title==="+i,false,"https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3922290090,3177876335&fm=26&gp=0.jpg");
+            checkBeans.add(bean);
+        }
+
+
+
+    }
+
+    private void r(){
         ApiRepository.checkAppResource4("111").subscribe(new RxLifeObserver<BaseResponse<LoadAppResBean>>(this){
             @Override
             public void onNext(BaseResponse<LoadAppResBean> res) {
                 super.onNext(res);
                 listObservableField.addAll(res.body.list);
+                refreshing.postValue(false);
             }
         });
-        List<String>list=new ArrayList<>();
-        for (int i=0;i<100;i++){
-            list.add(i+"这是布局");
-        }
-        listString.set(list);
-
-
-
     }
-    public void clickItem(AppResBean item){
+    public void clickItem(AppResBean item,int index){
         LogUtil.e("===>====>item===>"+item.value);
-        AppResBean appResBean=new AppResBean();
-        appResBean.value="1111";
-        listObservableField.add(appResBean);
+        LogUtil.e("===>====>index===>"+index);
+        selectIndex.set(index);
 
     }
-    public void clickItem(String item){
-        LogUtil.e("===>=String===>item===>"+item);
+    public void clickItem(CheckBean item,int index){
+        LogUtil.e("===>=String===>item===>"+item.title);
+        item.check=!item.check;
+        checkBeans.set(index,item);
+
 
     }
+
+    public void headRefresh(){
+        checkBeans.clear();
+        for (int i=0;i<100;i++){
+            CheckBean bean=new CheckBean("title=22222=="+i,false,"https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2839262297,1897381364&fm=26&gp=0.jpg");
+            checkBeans.add(bean);
+        }
+
+    }
+
+
+
 }

@@ -1,23 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
-            name="resItem"
-            type="String" />
+            name="checkBean"
+            type="com.example.dawnmvvm.bean.CheckBean" />
+        <variable
+            name="index"
+            type="int" />
         <variable
             name="listVm"
             type="com.example.dawnmvvm.ui.list.ListVM" />
 
     </data>
-
-    <TextView
-        android:onClick="@{()->listVm.clickItem(resItem)}"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:textColor="@color/colorAccent"
-        android:gravity="center"
-        android:textSize="16sp"
-        android:text="@{resItem}"
-        android:layout_height="100dp" />
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="100dp"
+            android:src="@color/colorAccent"
+            app:imageUrl="@{checkBean.url}"
+            android:layout_height="100dp"/>
+        <TextView
+            android:onClick="@{()->listVm.clickItem(checkBean,index)}"
+            android:layout_width="match_parent"
+            android:textColor="@{checkBean.check?@color/mainColor:@color/colorPrimaryDark}"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:text="@{checkBean.title}"
+            android:layout_height="100dp" />
+    </LinearLayout>
+
+
 </layout>
 

@@ -16,6 +16,7 @@ public class RxLifeObserver<T> implements Observer<T>, LifecycleObserver, IViewM
     private Disposable disposable;
     private LifecycleOwner owner;
     private BaseViewModel baseViewModel;
+    private boolean showLoading=true;
 
 
     protected RxLifeObserver(IDisposable iDisposable) {
@@ -29,6 +30,11 @@ public class RxLifeObserver<T> implements Observer<T>, LifecycleObserver, IViewM
         this.owner = owner;
     }
 
+    public RxLifeObserver<T> setShowLoading(boolean showLoading) {
+        this.showLoading = showLoading;
+        return this;
+    }
+
     @Override
     public final void onSubscribe(Disposable d) {//防止子类重写
         this.disposable = d;
@@ -37,9 +43,6 @@ public class RxLifeObserver<T> implements Observer<T>, LifecycleObserver, IViewM
         }
         if (this.owner != null) {
             this.owner.getLifecycle().addObserver(this);
-        }
-        if (this.baseViewModel != null) {
-            this.baseViewModel.showLoading();
         }
         showLoading();
 
@@ -70,6 +73,9 @@ public class RxLifeObserver<T> implements Observer<T>, LifecycleObserver, IViewM
 
     @Override
     public void showLoading() {
+        if(!showLoading){
+            return;
+        }
         if(baseViewModel==null){
             return;
         }

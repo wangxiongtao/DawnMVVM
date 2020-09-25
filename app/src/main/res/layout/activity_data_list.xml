@@ -13,14 +13,20 @@
             name="context"
             type="android.content.Context" />
     </data>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_height="match_parent"
+        app:onRefreshListener="@{listVm.onRefreshListener}"
+        app:refreshing="@{listVm.refreshing}"
+        android:layout_width="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            app:layoutManager="@{LayoutManagerFactory.grid(context,2)}"
+            app:dataList="@{listVm.listObservableField}"
+            app:adapter="@{listVm.iBindingAdapter}"
+            app:lineManager='@{DividerLine.LineDrawMode.BOTH}'
+            android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        app:layoutManager="@{LayoutManagerFactory.grid(context,2)}"
-        app:items="@{listVm.listObservableField}"
-        app:itemBinding="@{listVm.itemBinding}"
-        app:lineManager='@{DividerLine.LineDrawMode.BOTH}'
-        android:layout_height="match_parent">
+        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    </androidx.recyclerview.widget.RecyclerView>
 </layout>
