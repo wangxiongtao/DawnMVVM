@@ -26,6 +26,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class ListVM extends BaseViewModel {
     public ObservableArrayList<AppResBean> listObservableField=new ObservableArrayList<>();
     public MutableLiveData<Boolean> refreshing=new MutableLiveData<>();
+    public MutableLiveData<Class<?>> skip = new MutableLiveData<>();
 
 
     public ItemAdapter<AppResBean> iBindingAdapter= ItemAdapterFactory.getAppResAdapter(this);
@@ -102,6 +103,9 @@ public class ListVM extends BaseViewModel {
         LogUtil.e("===>=String===>item===>"+item.title);
         item.check=!item.check;
         checkBeans.set(index,item);
+//        skip.postValue(SecondShareActivity.class);
+
+
 
 
     }
