@@ -16,6 +16,8 @@ import com.example.dawnmvvm.bean.BaseResponse;
 import com.example.dawnmvvm.bean.CheckBean;
 import com.example.dawnmvvm.bean.LoadAppResBean;
 import com.example.dawnmvvm.http.api.ApiRepository;
+import com.example.dawnmvvm.ui.behavior.BehaviorActivity;
+import com.example.dawnmvvm.ui.behavior.BehaviorActivity2;
 import com.example.dawnmvvm.ui.bottomsheet.BottomsheetActivity;
 import com.example.dawnmvvm.util.LogUtil;
 
@@ -81,6 +83,8 @@ public class ListVM extends BaseViewModel {
         List<String>list=new ArrayList<>();
         list.add("head");
         list.add("bottomsheet");
+        list.add("Behavior");
+        list.add("Behavior2");
 
 
 
@@ -117,6 +121,12 @@ public class ListVM extends BaseViewModel {
         switch (index){
             case 1:
                 skip.postValue(BottomsheetActivity.class);
+                break;
+            case 2:
+                skip.postValue(BehaviorActivity.class);
+                break;
+            case 3:
+                skip.postValue(BehaviorActivity2.class);
                 break;
         }
 
