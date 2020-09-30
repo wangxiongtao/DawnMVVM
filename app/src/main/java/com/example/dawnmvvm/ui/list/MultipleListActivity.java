@@ -1,5 +1,6 @@
 package com.example.dawnmvvm.ui.list;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.lifecycle.Observer;
@@ -22,6 +23,8 @@ public class MultipleListActivity extends BaseActivity<ActivityMultipleListBindi
         getViewModel().skip.observe(this, new Observer<Class<?>>() {
             @Override
             public void onChanged(Class<?> aClass) {
+                Intent intent=new Intent(MultipleListActivity.this,aClass);
+                startActivity(intent);
 
             }
         });

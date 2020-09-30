@@ -16,8 +16,11 @@ import com.example.dawnmvvm.bean.BaseResponse;
 import com.example.dawnmvvm.bean.CheckBean;
 import com.example.dawnmvvm.bean.LoadAppResBean;
 import com.example.dawnmvvm.http.api.ApiRepository;
+import com.example.dawnmvvm.ui.bottomsheet.BottomsheetActivity;
 import com.example.dawnmvvm.util.LogUtil;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -74,8 +77,15 @@ public class ListVM extends BaseViewModel {
     public void onCreate() {
         super.onCreate();
         r();
-        for (int i=0;i<100;i++){
-            CheckBean bean=new CheckBean("title==="+i,false,"https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3922290090,3177876335&fm=26&gp=0.jpg");
+
+        List<String>list=new ArrayList<>();
+        list.add("head");
+        list.add("bottomsheet");
+
+
+
+        for (int i=0;i<list.size();i++){
+            CheckBean bean=new CheckBean(list.get(i),false,"https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3922290090,3177876335&fm=26&gp=0.jpg");
             checkBeans.add(bean);
         }
 
@@ -102,8 +112,13 @@ public class ListVM extends BaseViewModel {
     public void clickItem(CheckBean item,int index){
         LogUtil.e("===>=String===>item===>"+item.title);
         item.check=!item.check;
-        checkBeans.set(index,item);
+//        checkBeans.set(index,item);
 //        skip.postValue(SecondShareActivity.class);
+        switch (index){
+            case 1:
+                skip.postValue(BottomsheetActivity.class);
+                break;
+        }
 
 
 

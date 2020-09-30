@@ -1,18 +1,11 @@
 package com.example.dawnmvvm.ui.main;
 
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.dawnmvvm.BR;
 import com.example.dawnmvvm.R;
@@ -23,11 +16,19 @@ import com.example.dawnmvvm.util.LogUtil;
 public class MainFragment extends BaseFragment<MainFragmentBinding,FragmentVm> {
 
     private Main2VM mViewModel;//父类Activity的VM 不是子类的！！！！！！
-
     public static MainFragment newInstance() {
-        return new MainFragment();
+
+        Bundle args = new Bundle();
+        MainFragment fragment = new MainFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+    }
 
     @Override
     public int getLayoutId() {

@@ -33,7 +33,6 @@ public abstract class BaseFragment<VDB extends ViewDataBinding,VM extends BaseVi
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initData(savedInstanceState);
         handlerVM();
         progressDialog = new ProgressDialog(requireActivity());
         initData(savedInstanceState);

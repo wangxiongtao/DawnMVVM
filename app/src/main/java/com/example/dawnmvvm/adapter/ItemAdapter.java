@@ -9,6 +9,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.dawnmvvm.util.LogUtil;
+
 import java.util.List;
 
 public abstract class ItemAdapter<T> extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
@@ -21,6 +23,7 @@ public abstract class ItemAdapter<T> extends RecyclerView.Adapter<ItemAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LogUtil.e("onCreateViewHolder===>");
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         ViewDataBinding binding = DataBindingUtil.inflate(layoutInflater, getLayoutId(viewType), parent, false);
         return new ViewHolder(binding.getRoot());

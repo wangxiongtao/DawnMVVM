@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="uiVm"
+            type="com.example.dawnmvvm.ui.UIVm" />
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:padding="10dp"
+            android:text="@{String.valueOf(uiVm.fragmentPos)}" />
+
+        <androidx.recyclerview.widget.RecyclerView
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:adapter="@{uiVm.itemAdapter}"
+            app:dataList="@{uiVm.list}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+    </LinearLayout>
+</layout>
