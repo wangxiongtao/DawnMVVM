@@ -11,9 +11,11 @@ import com.example.dawnmvvm.R;
 import com.example.dawnmvvm.util.LogUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class HashMapActivity extends AppCompatActivity {
+    HashMap<String,String> hashMap;
     LinkedList linkedList;
     ArrayList arrayList;
     Handler handler=new Handler(){
@@ -29,6 +31,15 @@ public class HashMapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hash_map);
         handler.sendEmptyMessage(0);
+
+        arrayList=new ArrayList(10);
+
+        hashMap=new HashMap<>(0);
+        hashMap.put(null,"1");
+        hashMap.put("1",null);
+
+
+
         MyNodeList<String>myNodeList=new MyNodeList<>();
 //        myNodeList.add("0");
 //        myNodeList.add("1");

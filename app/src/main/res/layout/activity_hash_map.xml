@@ -20,6 +20,13 @@ LinkedList： 底层由链表提供支持。对于列表中间移除和插入数
     <TextView
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
+        android:text="HashMap再put元素的时候会对key值做hash处理得到key值的hash值再用hash值算出再数组中
+的下标，具体计算是通过hash与上(n-1)其实就算对数组长度取余数，保证下标再数组长度之内，但是这里存在不同的key算出的下标相同的情况，于是采用链表的结构
+存储key-value;还有扩容，长度与必须是2的幂，以保证hash分布均匀，减少hash冲突"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
         android:text="handler延迟发消息是对每一个消息设置需要等待时间，然后再加入队列的时候根据时间对消息进行排序，对头的时间少，队尾的时间大
 时间的计算是SystemClock.uptimeMillis()（系统开机时间，但是不包括休眠时间） + delayMillis；消息处理完可以设置MessageQueue.IdleHandler，对消息处理完的监听"
         android:layout_height="wrap_content"/>
