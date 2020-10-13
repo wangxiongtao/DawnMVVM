@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.hash.HashMapActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="ArrayList： 底层由数组提供支持。有非常好的随机读写能力，但是对于在数组中间插入和移除数据较慢。\n
+LinkedList： 底层由链表提供支持。对于列表中间移除和插入数据速度非常快，并且不存在扩容问题。但是随机读写能力较弱。"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:text="list添加数据的时候，需要判断数组的大小,默认是10，如果超过10会进行扩容，得到新数据，然后再对数组下标设置新的值，扩容的大小是原数组长度的1.5，如果还是不够就按长度的需要设置，
+        如果数组添加的数量特别大的时候，可以先调用ensureCapacity方法提前设置容器的大小，以免每次添加一个元素都去判断扩容"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:text="handler延迟发消息是对每一个消息设置需要等待时间，然后再加入队列的时候根据时间对消息进行排序，对头的时间少，队尾的时间大
+时间的计算是SystemClock.uptimeMillis()（系统开机时间，但是不包括休眠时间） + delayMillis；消息处理完可以设置MessageQueue.IdleHandler，对消息处理完的监听"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
