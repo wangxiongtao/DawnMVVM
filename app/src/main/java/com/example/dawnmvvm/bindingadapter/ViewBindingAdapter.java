@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.load.model.GlideUrl;
 import com.example.dawnmvvm.adapter.ItemAdapter;
 import com.example.dawnmvvm.bindingadapter.recyclerview.DividerLine;
 import com.example.dawnmvvm.view.CountDownButton;
@@ -38,7 +39,7 @@ public class ViewBindingAdapter {
     @BindingAdapter("imageUrl")
     public static <T> void setImageUrl(ImageView imageView, String imageUrl){
         imageUrl="https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2839262297,1897381364&fm=26&gp=0.jpg";
-        GlideApp.with(imageView.getContext()).load(imageUrl).placeholder(imageView.getDrawable()).error(imageView.getDrawable()).into(imageView);
+        GlideApp.with(imageView.getContext()).load(new GlideUrl(imageUrl)).placeholder(imageView.getDrawable()).error(imageView.getDrawable()).into(imageView);
 
     }
 

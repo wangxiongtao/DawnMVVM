@@ -30,5 +30,18 @@ LinkedList： 底层由链表提供支持。对于列表中间移除和插入数
         android:text="handler延迟发消息是对每一个消息设置需要等待时间，然后再加入队列的时候根据时间对消息进行排序，对头的时间少，队尾的时间大
 时间的计算是SystemClock.uptimeMillis()（系统开机时间，但是不包括休眠时间） + delayMillis；消息处理完可以设置MessageQueue.IdleHandler，对消息处理完的监听"
         android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <com.example.dawnmvvm.view.MyValueAnimaView
+            android:layout_width="100dp"
+            android:background="@color/colorAccent"
+            android:layout_height="30dp"/>
+        <com.example.dawnmvvm.view.MyValueAnimaView2
+            android:layout_width="100dp"
+            android:background="@color/colorPrimaryDark"
+            android:layout_height="30dp"/>
+    </LinearLayout>
 
 </LinearLayout>
