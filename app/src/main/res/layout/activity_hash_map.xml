@@ -35,13 +35,31 @@ LinkedList： 底层由链表提供支持。对于列表中间移除和插入数
         android:orientation="horizontal"
         android:layout_height="wrap_content">
         <com.example.dawnmvvm.view.MyValueAnimaView
-            android:layout_width="100dp"
+            android:id="@+id/value_view"
+            android:layout_width="50dp"
             android:background="@color/colorAccent"
             android:layout_height="30dp"/>
-        <com.example.dawnmvvm.view.MyValueAnimaView2
-            android:layout_width="100dp"
-            android:background="@color/colorPrimaryDark"
+        <com.example.dawnmvvm.view.MyValueAnimaView
+            android:id="@+id/value_view1"
+            android:layout_width="50dp"
+            android:background="@color/colorAccent"
+            android:layout_height="30dp"/>
+        <com.example.dawnmvvm.view.MyValueAnimaView
+            android:id="@+id/value_view2"
+            android:layout_width="50dp"
+            android:background="@color/colorAccent"
+            android:layout_height="30dp"/>
+        <com.example.dawnmvvm.view.MyValueAnimaView
+            android:id="@+id/value_view3"
+            android:layout_width="50dp"
+            android:background="@color/colorAccent"
             android:layout_height="30dp"/>
     </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:lineSpacingExtra="30dp"
+        android:text="11111111111111111111\n123456"
+        android:layout_height="30dp"/>
 
 </LinearLayout>

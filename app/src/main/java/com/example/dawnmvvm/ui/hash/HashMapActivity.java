@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.dawnmvvm.R;
 import com.example.dawnmvvm.base.RxLifeObserver;
 import com.example.dawnmvvm.util.LogUtil;
+import com.example.dawnmvvm.view.MyValueAnimaView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,6 +49,16 @@ public class HashMapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hash_map);
         //编译命令 gradlew compileDebugJavaWithJavac
+        //获取手机的cpu架构 adb shell getprop ro.product.cpu.abi
+
+        MyValueAnimaView valueAnimaView=findViewById(R.id.value_view);
+        valueAnimaView.setNums(9);
+        MyValueAnimaView valueAnimaView1=findViewById(R.id.value_view1);
+        valueAnimaView1.setNums(0);
+        MyValueAnimaView valueAnimaView2=findViewById(R.id.value_view2);
+        valueAnimaView2.setNums(1);
+        MyValueAnimaView valueAnimaView3=findViewById(R.id.value_view3);
+        valueAnimaView3.setNums(7);
         handler.sendEmptyMessage(0);
         Message.obtain(handler);
 

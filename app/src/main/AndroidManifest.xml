@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.hash.HashMapActivity"></activity>
+        <activity android:name=".ui.GlideActivity"></activity>
+        <activity android:name=".ui.hash.HashMapActivity" />
         <activity android:name=".ui.behavior.BehaviorActivity" />
         <activity android:name=".ui.behavior.BehaviorActivity2" />
         <activity android:name=".ui.bottomsheet.BottomsheetActivity" />

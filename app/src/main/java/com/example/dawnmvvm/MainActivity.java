@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi;
 import com.example.dawnmvvm.base.BaseActivity;
 import com.example.dawnmvvm.databinding.ActivityMainBinding;
 import com.example.dawnmvvm.ui.list.SecondShareActivity;
+import com.example.dawnmvvm.util.LogUtil;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding,MainVM> {
 
@@ -31,6 +32,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainVM> {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
+                LogUtil.e("====>onClick1===>"+v.getWidth());
+                LogUtil.e("====>onClick1===>"+v.getLayoutParams().width);
+                LogUtil.e("====>onClick2===>"+getResources().getDimensionPixelSize(R.dimen.font3));
                 Intent intent = new Intent(MainActivity.this, SecondShareActivity.class);
 
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,getViewDataBinding().img,"share").toBundle());
