@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="#FFFFFF"
+    tools:context=".ui.ActionActivity">
+
+    <com.example.dawnmvvm.view.PaintView
+        android:id="@+id/paint_img"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"/>
+    <com.example.dawnmvvm.bean.Doodle
+
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:visibility="gone"
+        android:layout_height="match_parent" />
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent">
+        <ImageView
+            android:visibility="visible"
+            android:id="@+id/show_img"
+            android:layout_width="match_parent"
+            android:src="@mipmap/finsh6"
+            android:layout_height="match_parent"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:onClick="selectColor"
+                android:layout_width="wrap_content"
+                android:text="颜色"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:onClick="paintBig"
+                android:layout_width="wrap_content"
+                android:text="变粗"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:onClick="clear"
+                android:layout_width="wrap_content"
+                android:text="橡皮"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:onClick="score"
+                android:layout_width="wrap_content"
+                android:text="得分"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <com.example.dawnmvvm.view.HookView
+        android:visibility="gone"
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
+    <com.example.dawnmvvm.view.ConnectionLineLayout
+        android:visibility="gone"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+<!--       <LinearLayout-->
+<!--           android:orientation="vertical"-->
+<!--           android:id="@+id/showListLl"-->
+<!--           android:background="@color/colorPrimary"-->
+<!--           android:layout_width="100dp"-->
+<!--           android:layout_height="match_parent">-->
+
+
+
+
+<!--       </LinearLayout>-->
+<!--       <LinearLayout-->
+<!--           android:orientation="vertical"-->
+<!--           android:id="@+id/answerListLl"-->
+<!--           android:layout_alignParentEnd="true"-->
+<!--           android:background="@color/colorPrimary"-->
+<!--           android:layout_width="100dp"-->
+<!--           android:layout_height="match_parent">-->
+
+
+
+
+<!--       </LinearLayout>-->
+
+
+    </com.example.dawnmvvm.view.ConnectionLineLayout>
+
+</LinearLayout>

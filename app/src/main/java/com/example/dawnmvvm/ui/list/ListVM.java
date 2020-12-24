@@ -16,7 +16,12 @@ import com.example.dawnmvvm.bean.BaseResponse;
 import com.example.dawnmvvm.bean.CheckBean;
 import com.example.dawnmvvm.bean.LoadAppResBean;
 import com.example.dawnmvvm.http.api.ApiRepository;
+import com.example.dawnmvvm.ui.ActionActivity;
+import com.example.dawnmvvm.ui.DoodleActivity;
+import com.example.dawnmvvm.ui.GameActivity;
+import com.example.dawnmvvm.ui.GameActivity2;
 import com.example.dawnmvvm.ui.GlideActivity;
+import com.example.dawnmvvm.ui.PaintActivity;
 import com.example.dawnmvvm.ui.hash.HashMapActivity;
 import com.example.dawnmvvm.ui.behavior.BehaviorActivity;
 import com.example.dawnmvvm.ui.behavior.BehaviorActivity2;
@@ -89,6 +94,9 @@ public class ListVM extends BaseViewModel {
         list.add("Behavior2");
         list.add("HashMap");
         list.add("Glide");
+        list.add("Paint");
+        list.add("Game");
+        list.add("DOODLE");
 
 
 
@@ -137,6 +145,14 @@ public class ListVM extends BaseViewModel {
                 break;
             case 5:
                 skip.postValue(GlideActivity.class);
+            case 6:
+                skip.postValue(PaintActivity.class);
+                break;
+            case 7:
+                skip.postValue(ActionActivity.class);
+                break;
+            case 8:
+                skip.postValue(DoodleActivity.class);
                 break;
         }
 

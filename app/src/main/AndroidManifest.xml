@@ -11,7 +11,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.GlideActivity"></activity>
+        <activity android:name=".ui.DoodleActivity"
+            android:theme="@style/AppFullTheme"></activity>
+        <activity
+            android:name=".ui.ActionActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppFullTheme" />
+
+        <service
+            android:name=".ui.work.MyJobMyService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <activity android:name=".ui.GameActivity2" />
+        <activity
+            android:name=".ui.GameActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".ui.PaintActivity" />
+        <activity android:name=".ui.GlideActivity" />
         <activity android:name=".ui.hash.HashMapActivity" />
         <activity android:name=".ui.behavior.BehaviorActivity" />
         <activity android:name=".ui.behavior.BehaviorActivity2" />
