@@ -75,6 +75,8 @@ public class DragView extends View {
                 }
                 break;
         }
+
+
         return super.onTouchEvent(event);
     }
 

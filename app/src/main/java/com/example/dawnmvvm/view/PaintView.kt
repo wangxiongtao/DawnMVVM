@@ -10,12 +10,11 @@ import com.example.dawnmvvm.util.dp
 
 class PaintView : View {
     private var mPaint: Paint = Paint()
-    private var mPaint2: Paint = Paint()
     private var mPathEffect: PathEffect = CornerPathEffect(200f)
     private var mPath: Path = Path()
-    private var matrix1 = Matrix()
-     var drawBitmap:Bitmap?=null;
-    private var drawCanvas:Canvas?=null;
+    var drawBitmap: Bitmap? = null;
+    private var drawCanvas: Canvas? = null;
+
     constructor(context: Context) : super(context) {
         init()
     }
@@ -36,18 +35,13 @@ class PaintView : View {
         setBackgroundColor(Color.WHITE)
         mPaint.apply {
             strokeWidth = 5f.dp;
-            style = Paint.Style.STROKE;
+            style = Paint.Style.FILL;
             color = Color.parseColor("#F7101A")
             pathEffect = mPathEffect
             strokeCap = Paint.Cap.ROUND
             strokeJoin = Paint.Join.ROUND
+            flags = Paint.ANTI_ALIAS_FLAG
         }
-        mPaint2.apply {
-            strokeWidth = 5f.dp;
-            style = Paint.Style.FILL;
-            color = Color.WHITE
-        }
-
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -73,27 +67,24 @@ class PaintView : View {
         super.onDraw(canvas)
         if (drawBitmap == null) {
             drawBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-            drawCanvas= Canvas(drawBitmap!!);
+            drawCanvas = Canvas(drawBitmap!!);
         }
-        drawCanvas!!.drawPath(mPath,mPaint)
-//        drawCanvas!!.drawCircle(width/2f,height/2f,120f.dp,mPaint)
-//        drawCanvas!!.drawRect(50f.dp,180f.dp,250f.dp,200f.dp,mPaint2)
-        canvas.drawBitmap(drawBitmap!!,0f,0f,mPaint)
-
-
-//        canvas.drawCircle(width/2f,height/2f,120f.dp,mPaint)
-//        canvas!!.drawRect(50f.dp,180f.dp,250f.dp,200f.dp,mPaint2)
+        drawCanvas!!.drawCircle(width*0.5f, width*0.5f,width*0.3f,mPaint)
+//        drawCanvas!!.drawPath(mPath, mPaint)
+        canvas.drawBitmap(drawBitmap!!, 0f, 0f, mPaint)
     }
 
-    fun setStrokeWidth(w: Float){
+    fun setPaintConfig(color: String, w: Float = 2F.dp) {
         mPath.reset()
-        mPaint.strokeWidth=w;
+        mPaint.color = Color.parseColor(color)
+        mPaint.strokeWidth = w;
 
     }
-    fun setPaintColor(color: Int,w: Float=2F.dp){
+
+    fun setPaintConfig(color: Int, w: Float = 2F.dp) {
         mPath.reset()
-        mPaint.color=color
-        mPaint.strokeWidth=w;
+        mPaint.color = color
+        mPaint.strokeWidth = w;
 
     }
 

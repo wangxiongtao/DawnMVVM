@@ -26,6 +26,7 @@ import com.example.dawnmvvm.ui.hash.HashMapActivity;
 import com.example.dawnmvvm.ui.behavior.BehaviorActivity;
 import com.example.dawnmvvm.ui.behavior.BehaviorActivity2;
 import com.example.dawnmvvm.ui.bottomsheet.BottomsheetActivity;
+import com.example.dawnmvvm.ui.resultsapi.StartActivity;
 import com.example.dawnmvvm.util.LogUtil;
 
 import java.util.ArrayList;
@@ -97,6 +98,7 @@ public class ListVM extends BaseViewModel {
         list.add("Paint");
         list.add("Game");
         list.add("DOODLE");
+        list.add("Results API");
 
 
 
@@ -153,6 +155,9 @@ public class ListVM extends BaseViewModel {
                 break;
             case 8:
                 skip.postValue(DoodleActivity.class);
+                break;
+            case 9:
+                skip.postValue(StartActivity.class);
                 break;
         }
 

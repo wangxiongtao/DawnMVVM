@@ -24,6 +24,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding,MainVM> {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+//        MyService.Companion.start(this);
         getViewModel().skip.observe(this,(o)->{
                 Intent intent=new Intent(this,o);
                 startActivity(intent);

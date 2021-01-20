@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.dawnmvvm">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,9 +11,23 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".ui.DoodleActivity"
-            android:theme="@style/AppFullTheme"></activity>
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
+        <activity android:name=".ui.resultsapi.ResultActivity"></activity>
+        <activity android:name=".ui.resultsapi.StartActivity" />
+
+        <service
+            android:name=".MyService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".ui.ItemShareAnimActivity" />
+        <activity android:name=".ui.ShowBitmapActivity" />
+        <activity
+            android:name=".ui.DoodleActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppFullTheme" />
         <activity
             android:name=".ui.ActionActivity"
             android:screenOrientation="landscape"

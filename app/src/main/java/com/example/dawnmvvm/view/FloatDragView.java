@@ -24,6 +24,7 @@ public class FloatDragView implements View.OnTouchListener {
             }
         });
 
+
         return this;
     }
 
@@ -47,6 +48,7 @@ public class FloatDragView implements View.OnTouchListener {
             case MotionEvent.ACTION_UP:
                 break;
         }
+
 
         return true;
     }

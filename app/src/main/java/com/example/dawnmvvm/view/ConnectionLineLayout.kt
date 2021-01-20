@@ -2,17 +2,12 @@ package com.example.dawnmvvm.view
 
 import android.content.Context
 import android.graphics.*
-import android.os.Handler
-import android.os.Looper
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
-import android.widget.LinearLayout.VERTICAL
-import android.widget.RelativeLayout
 import android.widget.Toast
 import com.example.dawnmvvm.bean.ActionItemBean
-import com.example.dawnmvvm.util.LogUtil
 import com.example.dawnmvvm.util.dp
 
 class ConnectionLineLayout : LinearLayout {
@@ -24,6 +19,7 @@ class ConnectionLineLayout : LinearLayout {
     private var leftItemLl: LinearLayout? = null;
     private var rightItemLl: LinearLayout? = null;
     private var startView: ConnectionLineView? = null;//连线的起点view，也就是选择的题目view
+    private var lastStartView: ConnectionLineView? = null;//上一次选中的起点 view 用于判断单选 多选
 
     private var pathLine = Path();
     private var pathErrorLine = Path();
@@ -55,7 +51,7 @@ class ConnectionLineLayout : LinearLayout {
             strokeWidth = 2f.dp
             pathEffect = CornerPathEffect(300f);
             strokeCap = Paint.Cap.ROUND
-            color = Color.GREEN
+            color = Color.parseColor("#7BCDFB")
             style = Paint.Style.STROKE
 
         }
@@ -116,7 +112,7 @@ class ConnectionLineLayout : LinearLayout {
         answerItemList.forEach {
             val v = ConnectionLineView(context);
             val lp = LayoutParams(75f.dp.toInt(), 75f.dp.toInt())
-            lp.topMargin = 10f.dp.toInt();
+            lp.topMargin = 18f.dp.toInt();
             v.layoutParams = lp;
             v.setBackgroundColor(Color.parseColor(it.color))
             leftItemLl?.addView(v)
@@ -129,7 +125,7 @@ class ConnectionLineLayout : LinearLayout {
         showItemList.forEach {
             val v = ConnectionLineView(context);
             val lp = LayoutParams(75f.dp.toInt(), 75f.dp.toInt())
-            lp.topMargin = 10f.dp.toInt();
+            lp.topMargin = 18f.dp.toInt();
             v.layoutParams = lp;
             v.setBackgroundColor(Color.parseColor(it.color))
             v.tag = leftItemLl?.findAnswerViewByIndex(it.answerIndex)
@@ -150,9 +146,6 @@ class ConnectionLineLayout : LinearLayout {
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-
-        canvas?.drawCircle(width/2f,height/2f,height/3f,paintCircle!!)
-
         canvas?.drawPath(pathLine, paintAnswerLine!!)
         canvas?.drawPath(pathErrorLine, paintErrorLine!!)
     }
@@ -165,14 +158,28 @@ class ConnectionLineLayout : LinearLayout {
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
-                if (startView == null) {
-                    startView = findViewByPosition(event);
+                invalidatePath(0)
+                startView = findViewByPosition(event);
+                if (startView?.answerView != null) {//点击的view 已经配对了
+                    return true;
+                }
+                if (lastStartView == null || lastStartView?.isLeft == startView?.isLeft) {//点击的View是同一侧
+                    lastStartView?.isSelected = false;
+                    if (lastStartView == startView) {//点击的是同一个view，则重置
+                        lastStartView = null;
+                        startView = null;
+                        return true;
+                    }
                     startView?.let {
                         val rect = Rect();
                         it.getGlobalVisibleRect(rect)
                         startPointF = findLinePositionByView(it);
                         it.isSelected = true;
                     }
+                    lastStartView = startView;
+
+                } else {//点击的是不同侧的view 则起点view还是上一次的view，而不是这次view
+                    startView = lastStartView;
                 }
             }
             MotionEvent.ACTION_MOVE -> {
@@ -218,6 +225,7 @@ class ConnectionLineLayout : LinearLayout {
 
                         }
                         startView = null;//重置
+                        lastStartView = null;
                     } else {
                         Toast.makeText(context, "error--->答案错误", Toast.LENGTH_SHORT).show()
                         invalidatePath(-1)
@@ -231,17 +239,22 @@ class ConnectionLineLayout : LinearLayout {
             }
         }
     }
-    private fun invalidatePath(flag:Int){
+
+    /**
+     *
+     * @param flag Int 1:画正确的连线，-1：画错误的连线，0：清空错误的连线
+     */
+    private fun invalidatePath(flag: Int) {
         pathErrorLine.reset()//错误的连线每次都清除掉，再接着绘制
-        val dp=if(startPointF.x<endPointF.x)5f.dp else (-5f).dp
-        when(flag){
-            1->{//正确的连线
-                pathLine.moveTo(startPointF.x+dp, startPointF.y)
-                pathLine.lineTo(endPointF.x-dp, endPointF.y)
+        val dp = if (startPointF.x < endPointF.x) 5f.dp else (-5f).dp
+        when (flag) {
+            1 -> {//正确的连线
+                pathLine.moveTo(startPointF.x + dp, startPointF.y)
+                pathLine.lineTo(endPointF.x - dp, endPointF.y)
             }
-            -1->{//错误的连线
-                pathErrorLine.moveTo(startPointF.x+dp, startPointF.y)
-                pathErrorLine.lineTo(endPointF.x-dp, endPointF.y)
+            -1 -> {//错误的连线
+                pathErrorLine.moveTo(startPointF.x + dp, startPointF.y)
+                pathErrorLine.lineTo(endPointF.x - dp, endPointF.y)
             }
         }
         invalidate()
@@ -252,7 +265,7 @@ class ConnectionLineLayout : LinearLayout {
      * @param event MotionEvent
      */
     private fun findViewByPosition(event: MotionEvent): ConnectionLineView? {
-        val view: ConnectionLineView? = if (event.x <= width / 2) {
+        return if (event.x <= width / 2) {
             leftItemLl?.findViewByPosition(event.rawX, event.rawY)?.apply {
                 isLeft = true
             };
@@ -260,20 +273,7 @@ class ConnectionLineLayout : LinearLayout {
             rightItemLl?.findViewByPosition(event.x, event.y)?.apply {
                 isLeft = false
             };
-        }
-
-        if (startView != null) {//已经选了一个View了,则当前点击的view是第二个view
-            if (view?.answerView == startView) {//第二个view有答案并且就是第一个view，则说明他们已经配对，则返回null
-                return null;
-            }
-
-        } else {
-            if (view?.answerView != null) {//当前点击的view是第一个view，如果已经有答案了，说明已经是配对过了，返回null
-                return null;
-            }
-        }
-
-        return view;
+        };
     }
 
     private fun findLinePositionByView(view: ConnectionLineView): PointF {

@@ -16,15 +16,19 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.dawnmvvm.R;
 import com.example.dawnmvvm.bean.Doodle;
+import com.example.dawnmvvm.view.FlashStartView;
 
 
-public class DoodleActivity extends AppCompatActivity implements OnClickListener {
+public class DoodleActivity extends AppCompatActivity{
 
 	private Doodle mDoodle;
 
@@ -36,189 +40,42 @@ public class DoodleActivity extends AppCompatActivity implements OnClickListener
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_doodle);
-
-		mDoodle = (Doodle) findViewById(R.id.doodle_surfaceview);
-		mDoodle.setSize(dip2px(5));
-
-		findViewById(R.id.color_picker).setOnClickListener(this);
-		findViewById(R.id.paint_picker).setOnClickListener(this);
-		findViewById(R.id.eraser_picker).setOnClickListener(this);
-		findViewById(R.id.shape_picker).setOnClickListener(this);
-	}
-
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-		return mDoodle.onTouchEvent(event);
-	}
-
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.color_picker:
-			showColorDialog();
-			break;
-		case R.id.paint_picker:
-			showSizeDialog();
-			break;
-		case R.id.eraser_picker:
-			mDoodle.setType(Doodle.ActionType.Path);
-			mDoodle.setSize(dip2px(30));
-			mDoodle.setColor("#ffffff");
-			break;
-		case R.id.shape_picker:
-			showShapeDialog();
-			break;
-
-		default:
-			break;
-		}
-	}
-
-	private void showShapeDialog() {
-		if (mShapeDialog == null) {
-			mShapeDialog = new AlertDialog.Builder(this)
-					.setTitle("选择形状")
-					.setSingleChoiceItems(
-							new String[] { "路径", "直线", "矩形", "圆形", "实心矩形",
-									"实心圆" }, 0,
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int which) {
-									switch (which + 1) {
-									case 1:
-										mDoodle.setType(Doodle.ActionType.Path);
-										break;
-									case 2:
-										mDoodle.setType(Doodle.ActionType.Line);
-										break;
-									case 3:
-										mDoodle.setType(Doodle.ActionType.Rect);
-										break;
-									case 4:
-										mDoodle.setType(Doodle.ActionType.Circle);
-										break;
-									case 5:
-										mDoodle.setType(Doodle.ActionType.FillecRect);
-										break;
-									case 6:
-										mDoodle.setType(Doodle.ActionType.FilledCircle);
-										break;
-									default:
-										break;
-									}
-									dialog.dismiss();
-								}
-							}).create();
-		}
-		mShapeDialog.show();
-	}
-
-	private void showSizeDialog() {
-		if (mPaintDialog == null) {
-			mPaintDialog = new AlertDialog.Builder(this)
-					.setTitle("选择画笔粗细")
-					.setSingleChoiceItems(new String[] { "细", "中", "粗" }, 0,
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int which) {
-									switch (which) {
-									case 0:
-										mDoodle.setSize(dip2px(5));
-										break;
-									case 1:
-										mDoodle.setSize(dip2px(10));
-										break;
-									case 2:
-										mDoodle.setSize(dip2px(15));
-										break;
-									default:
-										break;
-									}
-
-									dialog.dismiss();
-								}
-							}).create();
-		}
-		mPaintDialog.show();
-	}
-
-	private void showColorDialog() {
-		if (mColorDialog == null) {
-			mColorDialog = new AlertDialog.Builder(this)
-					.setTitle("选择颜色")
-					.setSingleChoiceItems(new String[] { "红色", "绿色", "蓝色" }, 0,
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int which) {
-									switch (which) {
-									case 0:
-										mDoodle.setColor("#ff0000");
-										break;
-									case 1:
-										mDoodle.setColor("#00ff00");
-										break;
-									case 2:
-										mDoodle.setColor("#0000ff");
-										break;
-
-									default:
-										break;
-									}
-
-									dialog.dismiss();
-								}
-							}).create();
-		}
-		mColorDialog.show();
-	}
-
-	private int dip2px(float dpValue) {
-		final float scale = getResources().getDisplayMetrics().density;
-		return (int) (dpValue * scale + 0.5f);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0, 1, 1, "保存");
-		return super.onCreateOptionsMenu(menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == 1) {
-			String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/doodle/" + System.currentTimeMillis() + ".png";
-			if (!new File(path).exists()) {
-				new File(path).getParentFile().mkdir();
-			}
-			savePicByPNG(mDoodle.getBitmap(), path);
-			Toast.makeText(this, "图片保存成功，路径为" + path, Toast.LENGTH_LONG).show();
-		}
-		return true;
-	}
-	
-	@Override
-	public void onBackPressed() {
-		if (!mDoodle.back()) {
-			super.onBackPressed();
-		}
-	}
-	
-	public static void savePicByPNG(Bitmap b, String filePath) {
-		FileOutputStream fos = null;
-		try {
-//			if (!new File(filePath).exists()) {
-//				new File(filePath).createNewFile();
+		FlashStartView view=findViewById(R.id.flashView0);
+		FlashStartView view1=findViewById(R.id.flashView1);
+		FlashStartView view2=findViewById(R.id.flashView2);
+		FlashStartView view3=findViewById(R.id.flashView3);
+		FlashStartView view4=findViewById(R.id.flashView4);
+		ConstraintLayout layout=findViewById(R.id.start_Ll);
+		AlphaAnimation alphaAnimation=new AlphaAnimation(0,1);
+		alphaAnimation.setDuration(1000);
+		layout.startAnimation(alphaAnimation);
+		view.startFlash(500);
+		view1.startFlash(400);
+		view2.startFlash(200);
+		view3.startFlash(300);
+		view4.startFlash(100);
+//		alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
+//			@Override
+//			public void onAnimationStart(Animation animation) {
+//
 //			}
-			fos = new FileOutputStream(filePath);
-			if (null != fos) {
-				b.compress(Bitmap.CompressFormat.PNG, 90, fos);
-				fos.flush();
-				fos.close();
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//
+//			@Override
+//			public void onAnimationEnd(Animation animation) {
+//
+//			}
+//
+//			@Override
+//			public void onAnimationRepeat(Animation animation) {
+//
+//			}
+//		});
+
+
+
+
 	}
+
+
+
 }

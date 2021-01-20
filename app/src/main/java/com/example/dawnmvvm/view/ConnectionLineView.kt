@@ -39,9 +39,13 @@ class ConnectionLineView: View {
     override fun setSelected(selected: Boolean) {
         super.setSelected(selected)
         if(selected){
-            setBackgroundColor(Color.parseColor("#000000"))
+//            setBackgroundColor(Color.parseColor("#000000"))
+            scaleX=0.85f;
+            scaleY=0.85f
         }else{
-            setBackgroundColor(oriBackgroundColor!!)
+            scaleX=1f;
+            scaleY=1f
+//            setBackgroundColor(oriBackgroundColor!!)
         }
     }
 

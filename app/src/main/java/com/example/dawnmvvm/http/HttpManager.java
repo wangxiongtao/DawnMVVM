@@ -5,6 +5,7 @@ package com.example.dawnmvvm.http;
 
 import com.example.dawnmvvm.BuildConfig;
 import com.example.dawnmvvm.http.api.ApiInterface;
+import com.example.dawnmvvm.http.api.HttpLoggingInterceptor1;
 import com.example.dawnmvvm.util.LogUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -45,6 +46,7 @@ public class HttpManager {
 
         if (BuildConfig.DEBUG) {
             builder.addInterceptor(new HttpLoggingInterceptor().setLevel(BODY));
+            builder.addInterceptor(new HttpLoggingInterceptor1().setLevel(HttpLoggingInterceptor1.Level.BODY));
         }
         return builder.build();
 

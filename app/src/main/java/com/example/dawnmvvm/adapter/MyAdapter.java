@@ -1,10 +1,15 @@
 package com.example.dawnmvvm.adapter;
 
+import android.app.Activity;
+import android.view.View;
+
 import androidx.databinding.ViewDataBinding;
 
 import com.example.dawnmvvm.BR;
 import com.example.dawnmvvm.R;
 import com.example.dawnmvvm.bean.CheckBean;
+import com.example.dawnmvvm.databinding.ItemLayout2Binding;
+import com.example.dawnmvvm.ui.ItemShareAnimActivity;
 import com.example.dawnmvvm.ui.list.ListVM;
 import com.example.dawnmvvm.util.LogUtil;
 
@@ -60,6 +65,7 @@ public class MyAdapter extends ItemAdapter<CheckBean> {
                 binding.setVariable(BR.checkBean, item);
                 binding.setVariable(BR.index, position);
                 binding.setVariable(BR.listVm, listVM);
+                ItemLayout2Binding binding1= (ItemLayout2Binding) binding;
                 break;
         }
     }

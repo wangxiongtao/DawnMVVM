@@ -1,19 +1,26 @@
 package com.example.dawnmvvm.view
 
+import android.R.attr.path
 import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Path
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.AnticipateInterpolator
+import android.view.animation.DecelerateInterpolator
 import com.example.dawnmvvm.util.dp
 
+
 class HookView : View {
-    private var pathHook:Path?=null;
     private var paintHook = Paint()
-    private var progress:Float=0.1f;
+    private var progress: Float = 0f;
+    private var progress2: Float = -1.0f;
+    private var pathSrc: Path = Path();
+    private var pathDist: Path = Path();
+    private var pathMeasure: PathMeasure = PathMeasure();
+
 
     constructor(context: Context) : super(context) {
         init()
@@ -33,50 +40,35 @@ class HookView : View {
 
     private fun init() {
         paintHook.apply {
-            style=Paint.Style.STROKE
-            color=Color.BLUE
-            strokeWidth=10f.dp
+            style = Paint.Style.STROKE
+            color = Color.parseColor("#FF9600")
+            strokeWidth = 1f.dp
             strokeCap = Paint.Cap.ROUND
-           strokeJoin=Paint.Join.ROUND
+            strokeJoin = Paint.Join.ROUND
+            flags = Paint.ANTI_ALIAS_FLAG
         }
-        var anim=ValueAnimator.ofFloat(0.1f,1f);
-        anim.addUpdateListener {
-            progress=it.animatedValue as Float;
-            invalidate()
-        }
-        anim.duration=1000;
-        anim.start()
-        setOnClickListener {
-            progress+=0.1f;
-            invalidate()
-        }
+
+
+        ValueAnimator.ofFloat(0f, 1f).apply {
+            duration = 1000
+            interpolator=AccelerateInterpolator()
+            addUpdateListener {
+                progress = it.animatedValue as Float;
+                invalidate()
+            }
+        }.start();
+
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-
-        if(pathHook==null){
-            pathHook= Path();
-            pathHook!!.moveTo(10f.dp,50f.dp);
+        if (pathMeasure.length == 0f) {
+            pathSrc.moveTo(2f.dp, height *0.5f);
+            pathSrc.lineTo(width*0.4f, height*0.95f);
+            pathSrc.lineTo(width * 0.9f,height*0.2f)
+            pathMeasure.setPath(pathSrc, false)
         }
-//        pathHook!!.lineTo(50f.dp,50f.dp);
-//
-//        canvas?.drawPath(pathHook!!,paintHook)
-
-
-        pathHook!!.lineTo(10f.dp*progress+10f.dp,10f.dp*progress+50f.dp);
-        canvas?.drawPath(pathHook!!,paintHook)
-
-//        progress?.let {
-//            if(pathHook==null){
-//                pathHook= Path();
-//                pathHook!!.moveTo(10f.dp,10f.dp);
-//            }
-//            paintHook.color=Color.RED;
-//            pathHook!!.lineTo(40f.dp*it,80f.dp*it)
-////        pathHook.lineTo(80f.dp,10f.dp)
-//            canvas?.drawPath(pathHook!!,paintHook)
-//        }
-
+        pathMeasure.getSegment(0f, pathMeasure.length * progress, pathDist, true)
+        canvas?.drawPath(pathDist, paintHook)
     }
 }
