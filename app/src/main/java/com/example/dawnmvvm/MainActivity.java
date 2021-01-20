@@ -16,7 +16,9 @@ import com.example.dawnmvvm.util.LogUtil;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding,MainVM> {
 
+
     String string="我是dev 新增的内容11111";
+    String string1="我是dev 新增的内容2";
     @Override
     public int getLayoutId() {
         return R.layout.activity_main;
