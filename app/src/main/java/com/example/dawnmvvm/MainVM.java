@@ -21,6 +21,7 @@ import java.io.IOException;
 import okhttp3.ResponseBody;
 
 public class MainVM extends BaseViewModel {
+    public String vm="hot fix";
     public ObservableField<String> string = new ObservableField<>();
     public MutableLiveData<String> string2 = new MutableLiveData<>();
     public MutableLiveData<Class<?>> skip = new MutableLiveData<>();
